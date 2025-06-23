@@ -1,0 +1,46 @@
+[Author]
+  └── author_id (PK)
+  └── name
+  └── bio
+
+        ▲
+        │
+        │ (1 to Many)
+        ▼
+
+[Book]
+  └── book_id (PK)
+  └── title
+  └── category
+  └── available_copies
+  └── author_id (FK → Author)
+
+        ▲
+        │
+        │ (Many to Many via Loan)
+        ▼
+
+[Loan]
+  └── loan_id (PK)
+  └── student_id (FK → Student)
+  └── book_id (FK → Book)
+  └── issue_date
+  └── return_date
+
+        ▲
+        │
+        │ (1 to Many)
+        ▼
+
+[Student]
+  └── student_id (PK)
+  └── name
+  └── email
+  └── phone
+
+
+[Librarian]
+  └── librarian_id (PK)
+  └── name
+  └── email
+  └── phone

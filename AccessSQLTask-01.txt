@@ -1,0 +1,105 @@
+🧑‍💼 1. Get all authors' names and bios
+
+SELECT name, bio FROM Author;
+📚 2. Get all book titles and their categories
+
+SELECT title, category FROM Book;
+📘 3. Get book titles along with author names (using JOIN)
+
+SELECT 
+    Book.title, 
+    Author.name AS author_name 
+FROM Book
+JOIN Author ON Book.author_id = Author.author_id;
+🎓 4. List all students' names and emails
+
+SELECT name, email FROM Student;
+🔁 5. List all loan records with student and book details
+
+SELECT 
+    Loan.loan_id,
+    Student.name AS student_name,
+    Book.title AS book_title,
+    Loan.issue_date,
+    Loan.return_date
+FROM Loan
+JOIN Student ON Loan.student_id = Student.student_id
+JOIN Book ON Loan.book_id = Book.book_id;
+👨‍🏫 6. List all librarians
+
+SELECT name, email, phone FROM Librarian;
+🔎 Extra: Find books that are currently on loan
+
+SELECT 
+    Book.title,
+    Student.name AS borrowed_by,
+    Loan.issue_date
+FROM Loan
+JOIN Book ON Loan.book_id = Book.book_id
+JOIN Student ON Loan.student_id = Student.student_id
+WHERE Loan.return_date IS NULL;
+
+
+✅ 1. INSERT Queries
+Add new data into a table.
+
+➤ Add a new Author:
+
+INSERT INTO Author (name, bio) 
+VALUES ('R.K. Narayan', 'Indian writer known for Malgudi Days.');
+➤ Add a new Book:
+
+INSERT INTO Book (title, category, available_copies, author_id) 
+VALUES ('Malgudi Days', 'Short Stories', 3, 6);
+✏️ 2. UPDATE Queries
+Change existing data.
+
+➤ Update a student’s phone number:
+
+UPDATE Student 
+SET phone = '9876543299' 
+WHERE name = 'Deepa Singh';
+➤ Update book availability:
+
+UPDATE Book 
+SET available_copies = available_copies - 1 
+WHERE book_id = 1;
+❌ 3. DELETE Queries
+Remove data.
+
+➤ Delete a loan record:
+
+DELETE FROM Loan 
+WHERE loan_id = 2;
+➤ Delete a student:
+s
+DELETE FROM Student 
+WHERE email = 'jayant.mehta@example.com';
+🔍 4. FILTER with WHERE, ORDER BY, etc.
+➤ Get books in the "Mystery" category:
+
+SELECT * FROM Book 
+WHERE category = 'Mystery';
+➤ List students ordered by name:
+
+SELECT name, email FROM Student 
+ORDER BY name ASC;
+➤ Get books with more than 2 copies available:
+
+SELECT title, available_copies FROM Book 
+WHERE available_copies > 2;
+➤ Get loans issued in June 2025:
+
+SELECT * FROM Loan 
+WHERE issue_date BETWEEN '2025-06-01' AND '2025-06-30';
+🤝 Bonus: JOIN + Filter
+➤ Show student and book info where books haven’t been returned:
+
+SELECT 
+    Student.name AS student,
+    Book.title AS book,
+    Loan.issue_date
+FROM Loan
+JOIN Student ON Loan.student_id = Student.student_id
+JOIN Book ON Loan.book_id = Book.book_id
+WHERE Loan.return_date IS NULL;
